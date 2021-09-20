@@ -18,7 +18,7 @@ cd snort-2.9.18.1/ ;
 sudo ldconfig ;
 sudo ln -s /usr/local/bin/snort /usr/sbin/snort ;
 sudo groupadd snort ;
-sudo useradd snort -r -s / sbin / nologin -c SNORT_IDS -g snort ;
+sudo useradd snort -r -s /sbin/nologin -c SNORT_IDS -g snort ;
 sudo mkdir -p /etc/snort/rules ;
 sudo mkdir /var/log/snort ;
 sudo mkdir /usr/local/lib/snort_dynamicrules ;
