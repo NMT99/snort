@@ -94,13 +94,12 @@ WantedBy=multi-user.target
 " > /lib/systemd/system/snort.service ;
 
 
-sudo systemctl daemon-reload ;
-sudo systemctl start snort ;
+sudo systemctl daemon-reload && sudo systemctl start snort ;
 
 #Created symlink /etc/systemd/system/multi-user.target.wants/snort.service -> /lib/systemd/system/snort.service.
 ip addr | grep '<' ;
 #start
-sudo read -p "Enter ethernet interface{enp0s3 or...}:" myether ;
+read -p "Enter ethernet interface{enp0s3 or...}:" myether ;
 echo STARTING SNORT ! ;
 sudo snort -A console -i $myether -u snort -g snort -c /etc/snort/snort.conf ;
 
