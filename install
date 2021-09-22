@@ -3,10 +3,10 @@
 # 
 sudo apt install -y gcc libpcre3-dev zlib1g-dev libluajit-5.1-dev libpcap-dev openssl libssl-dev libnghttp2-dev libdumbnet-dev bison flex libdnet autoconf libtool ;
 mkdir ~/snort_src ;
-sudo cp daq-2.0.7.tar.gz snort-2.9.18.1.tar.gz ~/snort_src/ ;
-cd ~/snort_src ;
+#sudo cp daq-2.0.7.tar.gz snort-2.9.18.1.tar.gz ~/snort_src/ ;
+cd ~/snort_src/ ;
 #wget https://www.snort.org/downloads/snort/daq-2.0.7.tar.gz ;
-tar -xzvf ~/snort/daq-2.0.7.tar.gz -C /snort_src ;
+tar -xzvf ~/snort/daq-2.0.7.tar.gz -C ~/snort_src/ ;
 sudo apt -y install autoconf ;
 sudo apt install make ;
 cd daq-2.0.7/ ;
@@ -14,7 +14,7 @@ autoreconf -f -i ;
 ./configure && make && sudo make install ;
 cd ~/snort_src ;
 #wget https://www.snort.org/downloads/snort/snort-2.9.18.1.tar.gz ;
-tar -xzvf ~/snort/snort-2.9.18.1.tar.gz -C /snort_src ; 
+tar -xzvf ~/snort/snort-2.9.18.1.tar.gz -C ~/snort_src/ ; 
 cd snort-2.9.18.1/ ;
 ./configure --enable-sourcefire && make && sudo make install ;
 sudo ldconfig ;
