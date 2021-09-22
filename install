@@ -44,6 +44,7 @@ sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.con
 # AFTER
 read -p "Enter your IP start{192.168.0.0 or...}:" myip ;
 read -p "Enter your Number of bits{16 or 24}:" mybit ;
+sudo chown $USER:root /etc/snort/snort.conf ;
 sudo sed -i 's|ipvar HOME_NET any|ipvar HOME_NET $myip/$mybit|g' /etc/snort/snort.conf ;
 sudo sed -i 's|ipvar EXTERNAL_NET any|ipvar EXTERNAL_NET !$HOME_NET|g' /etc/snort/snort.conf ;
 sudo sed -i 's|#include $RULE_PATH/local.rules|include $RULE_PATH/local.rules|g' /etc/snort/snort.conf ;
