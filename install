@@ -44,12 +44,12 @@ sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.con
 # AFTER
 #sudo chown $USER:root /etc/snort/snort.conf ;
 #sudo chown $USER:root /etc/snort/ ;
-sed -i 's|ipvar HOME_NET any|ipvar HOME_NET ip1/bit1|g' /etc/snort/snort.conf ;
+sudo sed -i 's|ipvar HOME_NET any|ipvar HOME_NET ip1/bit1|g' /etc/snort/snort.conf ;
 
 read -p "Enter your IP(192.168.0.0 or...):" myip1 ;
 sudo sed -i -e "s/ip1/$myip1/g" /etc/snort/snort.conf ;
 
-read -p "Enter your Number of bits{16 or 24}:" mybit1 ;
+read -p "Enter your Number of bits{16 or 24 or...}:" mybit1 ;
 sudo sed -i -e "s/bit1/$mybit1/g" /etc/snort/snort.conf ;
 
 sudo sed -i 's|ipvar EXTERNAL_NET any|ipvar EXTERNAL_NET !$HOME_NET|g' /etc/snort/snort.conf ;
