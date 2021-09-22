@@ -2,8 +2,10 @@
 #snort 2.9 
 # 
 sudo apt install -y gcc libpcre3-dev zlib1g-dev libluajit-5.1-dev libpcap-dev openssl libssl-dev libnghttp2-dev libdumbnet-dev bison flex libdnet autoconf libtool ;
-mkdir ~/snort_src && cd ~/snort_src ;
-wget https://www.snort.org/downloads/snort/daq-2.0.7.tar.gz ;
+mkdir ~/snort_src ;
+sudo cp daq-2.0.7.tar.gz snort-2.9.18.1.tar.gz /snort_src ;
+cd ~/snort_src ;
+#wget https://www.snort.org/downloads/snort/daq-2.0.7.tar.gz ;
 tar -xzvf daq-2.0.7.tar.gz ;
 sudo apt -y install autoconf ;
 sudo apt install make ;
@@ -11,7 +13,7 @@ cd daq-2.0.7/ ;
 autoreconf -f -i ;
 ./configure && make && sudo make install ;
 cd ~/snort_src ;
-wget https://www.snort.org/downloads/snort/snort-2.9.18.1.tar.gz ;
+#wget https://www.snort.org/downloads/snort/snort-2.9.18.1.tar.gz ;
 tar -xzvf snort-2.9.18.1.tar.gz ; 
 cd snort-2.9.18.1/ ;
 ./configure --enable-sourcefire && make && sudo make install ;
@@ -29,12 +31,16 @@ sudo chmod -R 5775 /usr/local/lib/snort_dynamicrules ;
 sudo chown -R snort:snort /etc/snort ;
 sudo chown -R snort:snort /var/log/snort ;
 sudo chown -R snort:snort /usr/local/lib/snort_dynamicrules ;
+
 # create rule files
 sudo touch /etc/snort/rules/white_list.rules ;
 sudo touch /etc/snort/rules/black_list.rules ;
 sudo touch /etc/snort/rules/local.rules ;
+
 # sao chep cac tep cau hinh tu thu muc tai xuong
 sudo cp ~/snort_src/snort-2.9.18.1/etc/*.conf* /etc/snort ;
 sudo cp ~/snort_src/snort-2.9.18.1/etc/*.map /etc/snort ;
-#
 sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf ;
+
+
+
