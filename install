@@ -41,6 +41,55 @@ sudo touch /etc/snort/rules/local.rules ;
 sudo cp ~/snort_src/snort-2.9.18.1/etc/*.conf* /etc/snort ;
 sudo cp ~/snort_src/snort-2.9.18.1/etc/*.map /etc/snort ;
 sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf ;
+# AFTER
+read -p "Enter your IP start{192.168.0.0 or...}:" myip ;
+read -p "Enter your Number of bits{16 or 24}:" mybit ;
+sudo sed -i 's|ipvar HOME_NET any|ipvar HOME_NET $myip/$mybit|g' /etc/snort/snort.conf ;
+sudo sed -i 's|ipvar EXTERNAL_NET any|ipvar EXTERNAL_NET !$HOME_NET|g' /etc/snort/snort.conf ;
+sudo sed -i 's|#include $RULE_PATH/local.rules|include $RULE_PATH/local.rules|g' /etc/snort/snort.conf ;
+sudo sed -i 's|var WHITE_LIST_PATH ../rules|var WHITE_LIST_PATH /etc/snort/rules|g' /etc/snort/snort.conf ;
+sudo sed -i 's|var BLACK_LIST_PATH ../rules|var BLACK_LIST_PATH /etc/snort/rules|g' /etc/snort/snort.conf ;
+sudo sed -i 's|var RULE_PATH ../rules|var RULE_PATH /etc/snort/rules|g' /etc/snort/snort.conf ;
+sudo sed -i 's|var SO_RULE_PATH ../so_rules|var SO_RULE_PATH /etc/snort/so_rules|g' /etc/snort/snort.conf ;
+sudo sed -i 's|var PREPROC_RULE_PATH ../preproc_rules|var PREPROC_RULE_PATH /etc/snort/preproc_rules|g' /etc/snort/snort.conf ;
+#kiem tra cai dat
+echo TEST SETTING ! ;
+sudo snort -T -c /etc/snort/snort.conf
+echo Validating settings ! ;
+
+#sudo chmod +x /etc/snort/rules/* ;
+#cap quyen cho user:
+sudo chown -R $USER:root /etc/snort/rules/ ; 
+echo 'alert icmp any any -> $HOME_NET any (msg:"Co ai do dang PING!" ;sid:10000001;)' > /etc/snort/rules/local.rules
+echo 'alert icmp any any -> $HOME_NET any (msg:"Co ai do dang PING!";sid:10000001;)' >> /etc/snort/rules/local.rules
+echo 'alert tcp $EXTERNAL_NET any -> $HOME_NET 22 (msg: "SSH ben ngoai"; GID:1; sid:10000012; rev:001;)' >> /etc/snort/rules/local.rules
+echo 'alert tcp $HOME_NET any -> $HOME_NET 22 (msg:"SSH noi bo!"; GID:1; sid:10000002; rev:002;)' >> /etc/snort/rules/local.rules
+# Running in background
+sudo touch /lib/systemd/system/snort.service ;
+
+#cap quyen
+sudo chown -R $USER:root /lib/systemd/system ;
+echo "[Unit]
+Description=Snort NIDS Daemon
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/snort -q -u snort -g snort -c /etc/snort/snort.conf -i eth0
+
+[Install]
+WantedBy=multi-user.target
+
+" > /lib/systemd/system/snort.service ;
 
 
+sudo systemctl daemon-reload ;
+sudo systemctl start snort ;
+
+#Created symlink /etc/systemd/system/multi-user.target.wants/snort.service -> /lib/systemd/system/snort.service.
+ip addr | grep '<' ;
+#start
+read -p "Enter ethernet interface{enp0s3 or...}:" myether ;
+echo STARTING SNORT ! ;
+sudo snort -A console -i $myether -u snort -g snort -c /etc/snort/snort.conf ;
 
