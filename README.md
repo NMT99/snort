@@ -5,6 +5,4 @@ sudo apt install git -y
 
 git clone https://github.com/NMT99/snort.git
 
-cd snort && sudo chmod +x install
-
-./install
+cd snort && sudo chmod +x install && ./install
