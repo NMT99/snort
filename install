@@ -42,7 +42,7 @@ sudo cp ~/snort_src/snort-2.9.18.1/etc/*.conf* /etc/snort ;
 sudo cp ~/snort_src/snort-2.9.18.1/etc/*.map /etc/snort ;
 sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf ;
 # AFTER
-#sudo chown $USER:root /etc/snort/snort.conf ;
+sudo chown $USER:root /etc/snort/snort.conf ;
 sudo sed -i 's|ipvar EXTERNAL_NET any|ipvar EXTERNAL_NET !$HOME_NET|g' /etc/snort/snort.conf ;
 sudo sed -i 's|#include $RULE_PATH/local.rules|include $RULE_PATH/local.rules|g' /etc/snort/snort.conf ;
 sudo sed -i 's|var WHITE_LIST_PATH ../rules|var WHITE_LIST_PATH /etc/snort/rules|g' /etc/snort/snort.conf ;
@@ -91,7 +91,7 @@ sudo systemctl start snort ;
 #Created symlink /etc/systemd/system/multi-user.target.wants/snort.service -> /lib/systemd/system/snort.service.
 ip addr | grep '<' ;
 #start
-read -p "Enter ethernet interface{enp0s3 or...}:" myether ;
+sudo read -p "Enter ethernet interface{enp0s3 or...}:" myether ;
 echo STARTING SNORT ! ;
 sudo snort -A console -i $myether -u snort -g snort -c /etc/snort/snort.conf ;
 
