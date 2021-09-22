@@ -36,4 +36,5 @@ sudo touch /etc/snort/rules/local.rules ;
 # sao chep cac tep cau hinh tu thu muc tai xuong
 sudo cp ~/snort_src/snort-2.9.18.1/etc/*.conf* /etc/snort ;
 sudo cp ~/snort_src/snort-2.9.18.1/etc/*.map /etc/snort ;
-
+#
+sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf ;
