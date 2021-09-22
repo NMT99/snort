@@ -1,5 +1,5 @@
 # snort install
-cd ~/ && sudo apt-get update && sudo apt install git -y 
+sudo apt-get update && sudo apt install git -y  &&  cd ~/
 
 git clone https://github.com/NMT99/snort.git
 
