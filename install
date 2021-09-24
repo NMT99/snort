@@ -99,6 +99,7 @@ sudo systemctl daemon-reload && sudo systemctl start snort ;
 #Created symlink /etc/systemd/system/multi-user.target.wants/snort.service -> /lib/systemd/system/snort.service.
 ip addr | grep '<' ;
 #start
+ip addr | grep '<' ;
 read -p "Enter ethernet interface{enp0s3 or enp3s0 or...}:" myether1 ;
 echo STARTING SNORT ! ;
 sudo snort -A console -i $myether1 -u snort -g snort -c /etc/snort/snort.conf ;
